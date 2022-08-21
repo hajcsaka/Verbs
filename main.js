@@ -80,17 +80,17 @@ function writeIn() {
 };
 writeIn();
 
-//  A 2. inputmezőn Enter akkor fusson le a controll(); 
+//  A 2. inputmezőn Enter --> akkor fusson le a controll(); 
 let input2Text;
 
 document.querySelector('#input2').addEventListener('keypress', function (e) {
-    if (input2.value.length >= 1 && e.key === 'Enter') {
-        input2Text =  document.getElementById("input2").value ;
+    if (input2.value.length > 0 && e.key === 'Enter') {
+        input2Text = document.getElementById("input2").value;
         console.log('input2 text : ' + input2Text);
         controll();
-        console.log('elkaptam');
+
     } input2Text = document.getElementById("input2").value;
-     console.log('rogoton a kiirás után input 2 text : = ' +input2Text);
+    console.log('rogoton a kiirás után input 2 text : = ' + input2Text);
 }
 )
 // 2. inputmező elleörzése
@@ -101,6 +101,7 @@ function controll() {
         console.log('megeggyezik')
     } else {
         document.getElementById('input2').style.backgroundColor = "red";
+        rewriting2()
         document.getElementById("input3").focus();
         console.log('nem jó amit beirtál')
     }
@@ -126,6 +127,7 @@ function controll2() {
         console.log('megeggyezik')
     } else {
         document.getElementById('input3').style.backgroundColor = "red";
+        rewriting3()
         rewriting();
         console.log('nem jó amit beirtál')
     }
@@ -134,6 +136,18 @@ function rewriting() {
     document.getElementById("input1").value = (filterArray[0].verb + ' = '
         + filterArray[0].meaning);
 }
+function rewriting2() {
+    document.getElementById("input2").value = ('A helyes válasz ='
+        + filterArray[0].spast);
+        document.getElementById('input2').style.color = " yellow";
+}
+
+function rewriting3() {
+    document.getElementById("input3").value = ('A helyes válasz ='
+        + filterArray[0].ppart);
+        document.getElementById('input3').style.color = " yellow";
+}
+               
 
 function reload() {
     setTimeout(function () {
@@ -141,12 +155,17 @@ function reload() {
     }, 3000);
 }
 
- 
+
 
 function ClickFunction(x) {
+    input2Text = document.getElementById("input2").value;
     console.log("input2 text = " + input2Text);
     console.log("spast mostani erteke = " + (filterArray[0].spast));
     controll();
 }
 
- 
+function btnClick() {
+    input3Text = document.getElementById("input3").value;
+    controll2();
+    reload();
+}
