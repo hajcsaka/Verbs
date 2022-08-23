@@ -1,98 +1,48 @@
+let filterArray = [];
+let input2Text;
 
-window.onload = function () {
+
+document.addEventListener("DOMContentLoaded", function (event) {
     document.getElementById("input2").focus();
-};
+    console.log("A tömböm hossza jelenleg :" + verbs.length)
+    function random(min, max) { // min and max included
+        return Math.floor(Math.random() * (max - min) + min)
+    }
 
+    arrayLength1 = verbs.length;
+    const number = random(0, arrayLength1);
+    console.log('A véletlen szám : ' + number);
 
-const verbs = [
-    {
-        verb: "go",
-        spast: "went",
-        ppart: "gone",
-        meaning: "menni"
+    filterArray = verbs.filter(user => {
+        return user === verbs[number];
+    })
+    console.log(filterArray[0].verb);
+    console.log("spast =" + (filterArray[0].spast));
+    console.log("ppart =" + (filterArray[0].ppart));
+    console.log(filterArray[0].meaning);
 
-    },
-    {
-        verb: "break",
-        spast: "broke",
-        ppart: "broken",
-        meaning: "megszakítani, törni"
-    },
-    {
-        verb: "do",
-        spast: "did",
-        ppart: "done",
-        meaning: "tenni"
-    },
-    {
-        verb: "sell",
-        spast: "sold",
-        ppart: "sold",
-        meaning: "eladni"
-    },
-    {
-        verb: "begin",
-        spast: "began",
-        ppart: "begun",
-        meaning: "kezdeni"
+    writeIn();
 
-    },
-    {
-        verb: " build",
-        spast: "built",
-        ppart: "built",
-        meaning: "építeni"
+    //  A 2. inputmezőn Enter --> akkor fusson le a controll(); 
+    
 
-    },
-    {
-        verb: "bite",
-        spast: "bit",
-        ppart: "bitten",
-        meaning: "harapni"
+    document.querySelector('#input2').addEventListener('keypress', function (e) {
+        if (input2.value.length > 0 && e.key === 'Enter') {
+            input2Text = document.getElementById("input2").value;
+            console.log('input2 text : ' + input2Text);
+            controll();
 
-    },
+        } input2Text = document.getElementById("input2").value;
+        console.log('rogoton a kiirás után input 2 text : = ' + input2Text);
+    }
+    )
+});
 
-];
-//Filter the array to only include users who are on team: red
-
-function random(min, max) { // min and max included
-    return Math.floor(Math.random() * (max - min) + min)
-}
-
-arrayLength1 = verbs.length;
-const number = random(0, arrayLength1);
-console.log('A véletlen szám : ' + number);
-
-
-
-console.log('A verbs tömb hossza :' + arrayLength1)
-const filterArray = verbs.filter(user => {
-    return user === verbs[number];
-})
-console.log(filterArray[0].verb);
-console.log("spast =" + (filterArray[0].spast));
-console.log("ppart =" + (filterArray[0].ppart));
-console.log(filterArray[0].meaning);
 
 
 function writeIn() {
     document.getElementById("input1").value = filterArray[0].verb;
 };
-writeIn();
-
-//  A 2. inputmezőn Enter --> akkor fusson le a controll(); 
-let input2Text;
-
-document.querySelector('#input2').addEventListener('keypress', function (e) {
-    if (input2.value.length > 0 && e.key === 'Enter') {
-        input2Text = document.getElementById("input2").value;
-        console.log('input2 text : ' + input2Text);
-        controll();
-
-    } input2Text = document.getElementById("input2").value;
-    console.log('rogoton a kiirás után input 2 text : = ' + input2Text);
-}
-)
 // 2. inputmező elleörzése
 function controll() {
     if (input2Text === (filterArray[0].spast)) {
@@ -110,7 +60,7 @@ function controll() {
 //  A 3. inputmezőt vizsgálom és ha jó zöld ha nem akkor piros 
 let input3Text;
 document.querySelector('#input3').addEventListener('keypress', function (e) {
-    if (input3.value.length >= 1 && e.key === 'Enter') {
+    if (e.key === 'Enter') {
         input3Text = document.getElementById("input3").value;
         console.log('input3 text : ' + input3Text);
         controll2();
@@ -137,24 +87,27 @@ function rewriting() {
         + filterArray[0].meaning);
 }
 function rewriting2() {
-    document.getElementById("input2").value = ('A helyes válasz ='
+    document.getElementById("input2").value = ('A helyes válasz = '
         + filterArray[0].spast);
-        document.getElementById('input2').style.color = " yellow";
+    document.getElementById('input2');
 }
 
 function rewriting3() {
-    document.getElementById("input3").value = ('A helyes válasz ='
+    document.getElementById("input3").value = ('A helyes válasz = '
         + filterArray[0].ppart);
-        document.getElementById('input3').style.color = " yellow";
+    document.getElementById('input3').style.color = "lightgreen";
 }
-               
+
 
 function reload() {
     setTimeout(function () {
         window.location.reload();
-    }, 3000);
+    }, 2500);
 }
-
+// html - ben onkeyup="return forceLower(this);"
+function forceLower(strInput) {
+    strInput.value = strInput.value.toLowerCase();
+}
 
 
 function ClickFunction(x) {
@@ -164,8 +117,16 @@ function ClickFunction(x) {
     controll();
 }
 
+function btnClick2() {
+    document.getElementById("input2").value = ('jó válasz = '
+        + filterArray[0].spast);
+    document.getElementById('input2').style.backgroundColor = "lightgreen";
+
+}
+
 function btnClick() {
     input3Text = document.getElementById("input3").value;
     controll2();
+    btnClick2();
     reload();
 }
